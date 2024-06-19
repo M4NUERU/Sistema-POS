@@ -10,8 +10,20 @@ class AjaxDashboard {
         $datos = DashboardControlador::ctrGetDatosDashboard();
         echo json_encode($datos);
     }
+
+    public function getVentasMesActual() {
+        $ventasMesActual = DashboardControlador::ctrGetVentasMesActual();
+        echo json_encode($ventasMesActual);
+    }
 }
 
-// Instanciación de la clase y llamada al método
-$datos = new AjaxDashboard();
-$datos->getDatosDashboard();
+// Verificar la acción solicitada
+if (isset($_POST['accion']) && $_POST['accion'] == 1) {
+    // Llamar al método correspondiente para obtener las ventas del mes actual
+    $ventasMesActual = new AjaxDashboard();
+    $ventasMesActual->getVentasMesActual(); // Aquí faltaban los paréntesis y el punto y coma
+} else {
+    // Llamar al método correspondiente para obtener los datos del dashboard
+    $datos = new AjaxDashboard();
+    $datos->getDatosDashboard();
+}
