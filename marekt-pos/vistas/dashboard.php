@@ -25,7 +25,7 @@
      <div class="content">
       <div class="container-fluid">
         
-        <!-- /.row -->
+        <!-- /.row TARJETAS INFORMATIVAS -->
          <div class="row">
           <div class="col-lg-2">
             <div class="small-box">
@@ -56,7 +56,7 @@
                 <p>Total Compras</p>
               </div>
               <div class="icon">
-                <i class="ion ion-clipboard"></i>
+                <i class="ion ion-cash"></i>
               </div>
               <a style="cursor:pointer;"class="small-box-footer">Mas Info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -75,7 +75,7 @@
                 <p>Total Ventas</p>
               </div>
               <div class="icon">
-                <i class="ion ion-cash"></i>
+                <i class="ion ion-ios-cart"></i>
               </div>
               <a style="cursor:pointer;"class="small-box-footer">Mas Info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -94,7 +94,7 @@
                 <p>Ganancias</p>
               </div>
               <div class="icon">
-                <i class="ion ion-clipboard"></i>
+                <i class="ion ion-ios-pie"></i>
               </div>
               <a style="cursor:pointer;"class="small-box-footer">Mas Info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -113,7 +113,7 @@
                 <p>Productos poco stock</p>
               </div>
               <div class="icon">
-                <i class="ion ion-clipboard"></i>
+                <i class="ion ion-android-remove-circle"></i>
               </div>
               <a style="cursor:pointer;"class="small-box-footer">Mas Info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -132,7 +132,7 @@
                 <p>Ventas del dia</p>
               </div>
               <div class="icon">
-                <i class="ion ion-clipboard"></i>
+                <i class="ion ion-android-calendar"></i>
               </div>
               <a style="cursor:pointer;"class="small-box-footer">Mas Info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -141,11 +141,13 @@
 
          </div>
 
+         <!-- /.row GRAFICO DE BARRAS -->
+
          <div class="row">
           <div class="col-12">
             <div class="card card-info">
               <div class="card-header">
-                <h3 class="card-title"></h3>
+                <h3 class="card-title" id="card-title"></h3>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool"data-card-widget="collapse">
 
@@ -170,6 +172,81 @@
           </div>
 
          </div>
+
+        <!-- /.row LISTA PRODUCRTOS MAS VENDIDOS Y POCO STOCK -->
+
+         <div class="row">
+          <div class="col-lg-6">
+
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Los 10 productos mas vendidos</h3>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                  </button>
+                </div> <!-- ./ end card-tools -->
+              </div> <!-- ./ end card-header -->
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table" id="tbl_productos_mas_vendidos">
+                  <thead>
+                    <tr> 
+                      <th>Cod.producto</th>
+                      <th>Producto</th>
+                      <th>Cantidad</th>
+                      <th>Ventas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                
+                  </tbody>
+                </table>
+              </div>
+            </div> <!-- ./ end card-body -->
+          </div>
+           
+
+          </div>
+          <div class="col-lg-6">
+            <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Listado de productos con poco stock</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                  </div> <!-- ./ end card-tools -->
+                </div> <!-- ./ end card-header -->
+              <div class="card-body">
+              <table class="table" id="tbl_productos_poco_stock">
+                  <thead>
+                    <tr> 
+                      <th>Cod.producto</th>
+                      <th>Producto</th>
+                      <th>Stock Actual</th>
+                      <th>Minimo Stock</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    
+
+                  </tbody>
+                </table>
+              </div> <!-- ./ end card-body -->
+            </div>
+            
+          </div>
+         </div>
+
           
           
       </div><!-- /.container-fluid -->
@@ -178,7 +255,7 @@
   <!-- SOLICITUD AJAX -->
   <script>
  
-    // Primera solicitud AJAX
+    // solicitud AJAX TARJETAS INFORMATICAS
     $.ajax({
       url: "ajax/dashboard.ajax.php",
       dataType: 'json',
@@ -195,14 +272,13 @@
           console.error("Respuesta en formato inesperado:", respuesta);
         }
       },
-      error: function(jqXHR, textStatus, errorThrown) {
-        console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
-      }
+      
+      
     });
 
     </script>
-<script>
-        // Segunda solicitud AJAX
+  <script>
+        // solicitud AJAX GRAFICO DE BARRAS
         $.ajax({
             url: "ajax/dashboard.ajax.php",
             method: "POST",
@@ -224,7 +300,7 @@
                     total_ventas_mes += parseFloat(respuesta[i]['total_venta']);
                 }
 
-                $(".card-title").html('Ventas del Mes : $' + total_ventas_mes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#card-title").html('Ventas del Mes : $' + total_ventas_mes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
 
                 var barChartCanvas = $("#barChart").get(0).getContext('2d');
 
@@ -261,48 +337,114 @@
                         }
                     },
                     animation: {
-                        duration: 500,
-                        easing: "easeOutQuart",
-                        onComplete: function() {
-                            var ctx = this.chart.ctx;
-                            ctx.font = Chart.helpers.toFont({
-                                family: Chart.defaults.font.family,
-                                size: Chart.defaults.font.size,
-                                style: 'bold',
-                                weight: 'bold'
-                            });
-                            ctx.textAlign = 'center';
-                            ctx.textBaseline = 'bottom';
+    duration: 500,
+    easing: "easeOutQuart",
+    onComplete: function(context) {
+        // 'context' se refiere al contexto de la animación, que incluye la instancia del gráfico
+        var chartInstance = context.chart;
+        var ctx = chartInstance.ctx; // Obtenemos el contexto del gráfico
 
-                            this.data.datasets.forEach(function(dataset) {
-                                dataset.data.forEach(function(data, i) {
-                                    var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i].tooltipPosition();
-                                    var y_pos = model.y;
+        // Configuración de la fuente
+        ctx.font = Chart.helpers.toFont({
+            family: Chart.defaults.font.family,
+            size: Chart.defaults.font.size,
+            style: 'bold',
+            weight: 'bold'
+        });
 
-                                    ctx.fillStyle = '#ffa500';
-                                    ctx.fillText(data, model.x, y_pos - 5);
-                                });
-                            });
-                        }
-                    }
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+
+        // Iterar sobre los datasets del gráfico
+        chartInstance.data.datasets.forEach(function(dataset) {
+            // Obtener los metadatos de los datasets
+            var meta = chartInstance.getDatasetMeta(dataset.index);
+            // Iterar sobre los puntos de datos en el dataset
+            meta.data.forEach(function(element, index) {
+                var data = dataset.data[index];
+                if (data !== null && data !== undefined) {
+                    var position = element.tooltipPosition();
+                    var y_pos = position.y;
+
+                    ctx.fillStyle = '#ffa500';
+                    ctx.fillText(data, position.x, y_pos - 5);
                 }
+            });
+        });
+    }
+}
 
-                new Chart(barChartCanvas, {
-                    type: 'bar',
-                    data: barChartData,
-                    options: barChartOptions
-                });
+         }
 
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error("Error en la solicitud AJAX:", textStatus, errorThrown);
-            }
+           new Chart(barChartCanvas, {
+            type: 'bar',
+            data: barChartData,
+            ptions: barChartOptions
+         });
+
+            
+}
+            
         });
 
         // Definir la función formatNumber fuera del bloque $(document).ready()
         function formatNumber(num) {
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
-    </script
+    </script>
+  <script>
+    // solicitud AJAX PRODUCTOS MAS VENDIDOS 
+    $.ajax({
+        url: "ajax/dashboard.ajax.php",
+        method: "POST",
+        data: {
+            'accion': 2 // listar los 10 productos más vendidos
+        },
+        dataType: 'json',
+        success: function(respuesta) {
+            console.log("respuesta", respuesta);
+
+            for (let i = 0; i < respuesta.length; i++) {
+                let filas = '<tr>' +
+                            '<td>' + respuesta[i]["codigo_producto"] + '</td>' +
+                            '<td>' + respuesta[i]["descripcion_producto"] + '</td>' +
+                            '<td>' + respuesta[i]["cantidad"] + '</td>' +
+                            '<td> $' + respuesta[i]["total_venta"] + '</td>' +
+                            '</tr>';
+
+                $("#tbl_productos_mas_vendidos tbody").append(filas);
+            }
+        }
+    });
+
+    // solicitud AJAX PRODUCTOS POCO STOCK
+
+    $.ajax({
+        url: "ajax/dashboard.ajax.php",
+        method: "POST",
+        data: {
+            'accion': 3 // listar los productos poco stock
+        },
+        dataType: 'json',
+        success: function(respuesta) {
+            console.log("respuesta", respuesta);
+
+            for (let i = 0; i < respuesta.length; i++) {
+                let filas = '<tr>' +
+                            '<td>' + respuesta[i]["codigo_producto"] + '</td>' +
+                            '<td>' + respuesta[i]["descripcion_producto"] + '</td>' +
+                            '<td>' + respuesta[i]["stock_producto"] + '</td>' +
+                            '<td>' + respuesta[i]["minimo_stock_producto"] + '</td>' +
+                            '</tr>';
+
+                $("#tbl_productos_poco_stock tbody").append(filas);
+            }
+        }
+    });
+</script>
+
+
+
+
 
 
