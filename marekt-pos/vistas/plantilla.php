@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,8 +53,6 @@
 
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="vistas/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-
-    
 
     <!-- Select2 -->
     <link rel="stylesheet" href="vistas/assets/plugins/select2/css/select2.min.css">
