@@ -116,11 +116,9 @@
             formData.append('accion', 'carga_masiva_productos');
 
             $("#btnCargar").prop("disabled", true);
-        $("#img_carga").prop("style","display:block");
-        $("#img_carga").prop("style","height:200px");
-        $("#img_carga").prop("style","width:200px");
-           
-
+            $("#img_carga").prop("style","display:block");
+            $("#img_carga").prop("style","height:200px");
+            $("#img_carga").prop("style","width:200px");
         }
 
         // Aquí puedes agregar la lógica para enviar el formulario utilizando AJAX
@@ -133,8 +131,20 @@
             processData: false,
             success: function(respuesta) {
                 console.log("respuesta", respuesta);
+                if (respuesta > 0){
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'warning',
+                        title: 'Se registraron ' + respuesta + ' categorias correctamente',
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                    $("#btnCargar").prop("disabled", false);
+                    $("#img_carga").prop("style","display:none");
+                }
             }
         });
+
     });
 
   });
